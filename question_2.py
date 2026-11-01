@@ -1,26 +1,34 @@
+# Rotate operations on 8-bit binary numbers
 
-# Question 2: Rotate Left Without Carry (ROL)
+num = "10110110"
 
-def rotate_left(number, positions, bits=8):
-    mask = (1 << bits) - 1
+# (a) Rotate Left Without Carry (ROL)
 
-    number = number & mask
+print("Rotate Left Without Carry (ROL)")
+print("Original number:", num)
 
-    positions = positions % bits
+for i in range(2):
+    num = num[1:] + num[0]
+    print("After rotation", i + 1, ":", num)
 
-    result = ((number << positions) |
-              (number >> (bits - positions))) & mask
+print("Final ROL result:", num)
 
-    return result
 
-binary_number = "11110110"
+# (b) Rotate Left With Carry (RCL)
 
-number = int(binary_number, 2)
+num = "10110110"
+carry = "0"
 
-positions = 2
-result = rotate_left(number, positions)
+print("\nRotate Left With Carry (RCL)")
+print("Original number:", num)
+print("Initial Carry:", carry)
 
-print("Original binary number:", binary_number)
-print("Rotation positions:", positions)
-print("Result in binary:", format(result, '08b'))
-print("Result in unsigned decimal:", result)
+for i in range(2):
+    new_carry = num[0]
+    num = num[1:] + carry
+    carry = new_carry
+    print("After rotation", i + 1, ":", num)
+    print("Carry:", carry)
+
+print("Final RCL result:", num)
+print("Final Carry:", carry)
