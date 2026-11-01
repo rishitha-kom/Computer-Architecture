@@ -1,44 +1,48 @@
+# Signed binary arithmetic using 8-bit 2's complement
 
-# Question 1: Signed Binary Arithmetic Using 2's Complement
+# Expression (a): 34 + (+27)
 
-def to_binary(number, bits=8):
-    return format(number & ((1 << bits) - 1), f'0{bits}b')
+a = 34
+b = 27
 
-def binary_arithmetic(a, b, operator, bits=8):
-    binary_a = to_binary(a, bits)
-    binary_b = to_binary(b, bits)
+print("Expression (a): 34 + (+27)")
 
-    if operator == '+':
-        result = a + b
-    elif operator == '-':
-        result = a - b
-    else:
-        print("Invalid operator")
-        return
+print("Binary of 34:", format(a & 255, '08b'))
+print("Binary of 27:", format(b & 255, '08b'))
 
-    minimum = -(1 << (bits - 1))
-    maximum = (1 << (bits - 1)) - 1
+result = a + b
 
-    overflow = result < minimum or result > maximum
+print("Result in binary:", format(result & 255, '08b'))
+print("Result in decimal:", result)
 
-    print("\nOperand A (decimal):", a)
-    print("Operand A (binary) :", binary_a)
-    print("Operand B (decimal):", b)
-    print("Operand B (binary) :", binary_b)
-
-    print("\nOperation:", a, operator, b)
-    print("Result (decimal):", result)
-    print("Result (binary) :", to_binary(result, bits))
-
-    if overflow:
-        print("Arithmetic overflow: YES")
-        print("The result cannot be represented in", bits, "bits.")
-    else:
-        print("Arithmetic overflow: NO")
+if result > 127 or result < -128:
+    print("Overflow: Yes")
+else:
+    print("Overflow: No")
 
 
-print("EXPRESSION (a): 35 - (+29)")
-binary_arithmetic(35, 29, '-', 8)
+# Expression (b): (-34) - (-27)
 
-print("\nEXPRESSION (b): (-35) - (-12)")
-binary_arithmetic(-35, -12, '-', 8)
+a = -34
+b = -27
+
+print("\nExpression (b): (-34) - (-27)")
+
+print("Binary of -34:", format(a & 255, '08b'))
+print("Binary of -27:", format(b & 255, '08b'))
+
+result = a - b
+
+print("Result in binary:", format(result & 255, '08b'))
+
+if result >= 128:
+    decimal_result = result - 256
+else:
+    decimal_result = result
+
+print("Result in decimal:", decimal_result)
+
+if result > 127 or result < -128:
+    print("Overflow: Yes")
+else:
+    print("Overflow: No")
